@@ -1,3 +1,11 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Here you would implement the logic to email mike@winterer.com
+    // For now, we'll just redirect to the login page
+    header('Location: login.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
