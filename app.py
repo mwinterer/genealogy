@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
 
 app = Flask(__name__)
@@ -89,6 +89,24 @@ def person_detail(gedcom_file, person_pointer):
 
     return render_template('person_detail.html', name=name, birth_date=birth_date, death_date=death_date,
                            parents=parents, children=children, siblings=siblings, gedcom_file=gedcom_file)
+
+from werkzeug.utils import secure_filename
+
+@app.route('/upload', methods=['POST'])
+@login_required
+def upload_file():
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and file.filename.endswith('.ged'):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join('data', filename))
+        flash('File successfully uploaded')
+        return redirect(url_for('index'))
 
 @app.route('/request_access', methods=['GET', 'POST'])
 def request_access():
