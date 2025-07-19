@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ name }}</title>
+</head>
+<body>
+    <h1>{{ name }}</h1>
+    <a href="{{ url_for('gedcom_index', gedcom_file=gedcom_file) }}">Back to Index</a>
+    <hr>
+    <p><strong>Birth Date:</strong> {{ birth_date }}</p>
+    <p><strong>Death Date:</strong> {{ death_date }}</p>
+
+    <h2>Parents</h2>
+    <ul>
+        {% for pointer, parent_name in parents %}
+            <li><a href="{{ url_for('person_detail', gedcom_file=gedcom_file, person_pointer=pointer) }}">{{ parent_name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Children</h2>
+    <ul>
+        {% for pointer, child_name in children %}
+            <li><a href="{{ url_for('person_detail', gedcom_file=gedcom_file, person_pointer=pointer) }}">{{ child_name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <h2>Siblings</h2>
+    <ul>
+        {% for pointer, sibling_name in siblings %}
+            <li><a href="{{ url_for('person_detail', gedcom_file=gedcom_file, person_pointer=pointer) }}">{{ sibling_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

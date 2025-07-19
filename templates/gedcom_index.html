@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>People in {{ gedcom_file }}</title>
+</head>
+<body>
+    <h1>People in {{ gedcom_file }}</h1>
+    <a href="{{ url_for('index') }}">Back to Genealogy List</a>
+    <hr>
+    <input type="text" id="searchInput" onkeyup="search()" placeholder="Search for names..">
+    <ul id="peopleList">
+        {% for pointer, name in people %}
+            <li><a href="{{ url_for('person_detail', gedcom_file=gedcom_file, person_pointer=pointer) }}">{{ name }}</a></li>
+        {% endfor %}
+    </ul>
+
+    <script>
+    function search() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("peopleList");
+        li = ul.getElementsByTagName('li');
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+    </script>
+</body>
+</html>

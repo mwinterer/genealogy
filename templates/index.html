@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Genealogy</title>
+</head>
+<body>
+    <h1>Available Genealogies</h1>
+    <a href="{{ url_for('index') }}">Refresh List</a>
+    <ul>
+        {% for gedcom_file in gedcom_files %}
+            <li><a href="/gedcom/{{ gedcom_file }}">{{ gedcom_file }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
