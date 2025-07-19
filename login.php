@@ -5,8 +5,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Hardcoded user for now
-    if ($username === 'test' && $password === 'test') {
+    // Hardcoded users for now
+    if (($username === 'test' && $password === 'test') || ($username === 'mwinterer' && $password === 'orion1')) {
         $_SESSION['loggedin'] = true;
         header('Location: index.php');
         exit;
